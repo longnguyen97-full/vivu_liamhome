@@ -1,0 +1,14 @@
+name: Pull master code
+run-name: ${{ github.actor }} is pulling code GitHub Actions
+on:
+  push:
+    branches: [ master ]
+jobs:
+  pull_code:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master branch code
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        fetch-depth: 0
