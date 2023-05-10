@@ -2,7 +2,7 @@ name: Pull main code
 run-name: ${{ github.actor }} is pulling code GitHub Actions
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   pull_code:
     runs-on: ubuntu-latest
