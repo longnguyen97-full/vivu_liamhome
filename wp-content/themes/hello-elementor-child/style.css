@@ -1,0 +1,11 @@
+/*
+Theme Name: Hello Elementor
+Description: A child theme based on the Hello Elementor theme
+Author: Liam
+Author URI: https://github.com/longnguyen97-full
+Template: hello-elementor
+Version: 1.0
+*/
+
+/* Import parent theme styles */
+@import url('../hello-elementor/style.css');
