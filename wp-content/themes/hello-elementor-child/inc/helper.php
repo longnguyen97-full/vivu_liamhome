@@ -13,3 +13,11 @@ if (!function_exists('get_dynamic_version')) {
         return !empty($version) ? $version . '.' . strtotime('now') : strtotime('now');
     }
 }
+if (!function_exists('is_bookmarked')) {
+    function is_bookmarked($post_id)
+    {
+        $bookmark = new Bookmark();
+        $user_id  = get_current_user_id();
+        return $bookmark->isBookmarked($user_id, $post_id) ? true : false;
+    }
+}

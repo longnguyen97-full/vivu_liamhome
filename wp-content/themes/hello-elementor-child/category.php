@@ -5,6 +5,7 @@
         if (have_posts()) :
             while (have_posts()) :
                 the_post();
+                $class = is_bookmarked(get_the_ID()) ? 'marked' : '';
                 ?>
                 <div class="col">
                     <div class="card">
@@ -12,7 +13,8 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php the_title(); ?></h5>
                             <p class="card-text"><?php the_content(); ?></p>
-                            <a href="#" class="btn btn-primary text-end">Lưu lại</a>
+                            <span class="bookmark"><a href="#" class="btn btn-primary shadow-none <?php echo $class; ?>">Lưu lại</a></span>
+                            <input type="hidden" value="<?php the_ID(); ?>" class="bookmark-post_id">
                         </div>
                     </div>
                 </div>

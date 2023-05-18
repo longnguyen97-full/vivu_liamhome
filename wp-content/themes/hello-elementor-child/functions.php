@@ -14,3 +14,4 @@ require_once(INC . '/setup.php');
 require_once(INC . '/helper.php');
 require_once(INC . '/filter_nav_menu_items.php');
 require_once(CLASSES . '/authentication.php');
+require_once(CLASSES . '/bookmark.php');

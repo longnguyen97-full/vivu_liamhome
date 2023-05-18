@@ -1,3 +1,7 @@
 .hide {
-    display: none;
+  display: none;
+}
+
+.marked {
+  opacity: 0.5;
 }
