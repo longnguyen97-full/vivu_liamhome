@@ -13,8 +13,10 @@
                         <div class="card-body">
                             <h5 class="card-title"><?php the_title(); ?></h5>
                             <p class="card-text"><?php the_content(); ?></p>
-                            <span class="bookmark"><a href="#" class="btn btn-primary shadow-none <?php echo $class; ?>">Lưu lại</a></span>
-                            <input type="hidden" value="<?php the_ID(); ?>" class="bookmark-post_id">
+                            <?php if (is_user_logged_in()) : ?>
+                                <span class="bookmark"><a href="#" class="btn btn-primary shadow-none <?php echo $class; ?>">Lưu lại</a></span>
+                                <input type="hidden" value="<?php the_ID(); ?>" class="bookmark-post_id">
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
