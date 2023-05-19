@@ -6,6 +6,7 @@ class Bookmark
         add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
         add_action('wp_ajax_bookmark', [$this, 'callbackAjax']);
         add_action('wp_ajax_nopriv_bookmark', [$this, 'callbackAjax']);
+        $this->registerShortcode();
     }
 
     public function enqueueScripts()
@@ -65,6 +66,50 @@ class Bookmark
         $table = "{$wpdb->prefix}bookmarks";
         $checkIfExists = $wpdb->get_var("SELECT ID FROM $table WHERE user_id = '$user_id' AND post_id = '$post_id'");
         return !empty($checkIfExists) ? true : false;
+    }
+
+    public function registerShortcode()
+    {
+        add_shortcode('bookmark', function ($atts) {
+            $bookmark = new Bookmark();
+            $post_ids = $bookmark->getBookmark();
+            $this->showShortcode($post_ids);
+        });
+    }
+
+    public function getBookmark()
+    {
+        global $wpdb;
+        $table = "{$wpdb->prefix}bookmarks";
+        $user_id = get_current_user_id();
+        $query = "SELECT post_id FROM $table WHERE user_id=$user_id";
+        return $wpdb->get_results($wpdb->prepare($query), ARRAY_N);
+    }
+
+    public function showShortcode($post_ids)
+    {
+        ?>
+        <div class="container w-60 margin-x-lg" style="margin-left: 0">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <?php
+                foreach ($post_ids as $post_id) :
+                    $post_id = end($post_id);
+                    $post = get_post($post_id);
+                ?>
+                    <div class="col">
+                        <div class="card">
+                            <?php echo get_the_post_thumbnail($post->ID); ?>
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $post->post_title; ?></h5>
+                                <p class="card-text"><?php echo $post->post_content; ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach;
+                ?>
+            </div>
+        </div>
+        <?php
     }
 }
 $bookmark = new Bookmark();
