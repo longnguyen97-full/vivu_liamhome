@@ -1,38 +1,21 @@
 name: Deploy to EC2
-run-name: ${{ github.actor }} is deploying code to EC2
-
-# Trigger deployment only on push to main branch
-on:
+run-name: '${{ github.actor }} is deploying code to EC2'
+'on':
   push:
     branches:
       - main
-
-# jobs are the steps that you can define and see individual status reports
-# when you see the logs in your Actions tab
 jobs:
   deploy:
-  	# name of jobs
     name: Deploy to EC2 on main branch push
-    # OS of jobs that jobs will run on
     runs-on: ubuntu-latest
-
     steps:
-    	# Checkout pushed code using predefined action named actions/checkout@v3
       - name: Checkout the files
         uses: actions/checkout@v3
-
-		# Deploying the code to the server using predefined action named easingthemes/ssh-deploy@main
-        # This action will access EC2 using SSH and delivery code using rsync from the runner
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         env:
-          # Entry point where the runner should delivery, we asked the runner delivery all source
-          SOURCE: "./"
-          # Private key in SSH key pairs of EC2
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          # Host name of EC2
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          # Username of EC2, usually ubuntu
-          REMOTE_USER: ${{ secrets.USERNAME }}
-          # Is where you want to deploy your code
-          TARGET: ${{ secrets.TARGET_DIR }}
+          SOURCE: ./
+          SSH_PRIVATE_KEY: '${{ secrets.EC2_SSH_KEY }}'
+          REMOTE_HOST: '${{ secrets.HOST_DNS }}'
+          REMOTE_USER: '${{ secrets.USERNAME }}'
+          TARGET: '${{ secrets.TARGET_DIR }}'
