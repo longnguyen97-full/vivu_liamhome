@@ -5,17 +5,53 @@
         if (have_posts()) :
             while (have_posts()) :
                 the_post();
-                $class = is_bookmarked(get_the_ID()) ? 'marked' : '';
+                $post_id = get_the_ID();
+                $class = is_bookmarked($post_id) ? 'marked' : '';
                 ?>
                 <div class="col">
-                    <div class="card">
-                        <?php the_post_thumbnail(); ?>
+                    <div class="card card-border">
+                        <div class="card-thumbnail"><?php the_post_thumbnail(); ?></div>
                         <div class="card-body">
-                            <h5 class="card-title"><?php the_title(); ?></h5>
-                            <p class="card-text"><?php the_content(); ?></p>
+                            <h4 class="card-title"><?php the_title(); ?></h4>
+                            <?php
+                            // 1. create a variable called information store fields
+                            $information = "";
+                            $website = get_field('website', $post_id);
+                            $phone_number = get_field('phone_number', $post_id);
+                            $address = get_field('address', $post_id);
+                            $opening_hours = get_field('opening_hours', $post_id);
+                            $closing_hours = get_field('closing_hours', $post_id);
+                            $reference_price = get_field('reference_price', $post_id);
+                            // 2. add fields that has value to information
+                            if (!empty($website)) {
+                                $information .= "<span>Website: {$website}</span><br>";
+                            }
+                            if (!empty($phone_number)) {
+                                $information .= "<span>Số diện thoại: {$phone_number}</span><br>";
+                            }
+                            if (!empty($address)) {
+                                $information .= "<span>Địa chỉ:: {$address}</span><br>";
+                            }
+                            if (!empty($opening_hours)) {
+                                $information .= "<span>Giờ mở cửa: {$opening_hours}</span><br>";
+                            }
+                            if (!empty($closing_hours)) {
+                                $information .= "<span>Giờ đóng cửa: {$closing_hours}</span><br>";
+                            }
+                            if (!empty($reference_price)) {
+                                $information .= "<span>Giá tham khảo: {$reference_price}</span><br>";
+                            }
+                            ?>
+                            <div class="card-text">
+                                <?php
+                                // 3. display information
+                                echo $information;
+                                ?>
+                            </div>
+                            <a href="<?php echo get_permalink($post_id); ?>" class="btn btn-primary shadow-none">Chi tiết</a>
                             <?php if (is_user_logged_in()) : ?>
                                 <span class="bookmark"><a href="#" class="btn btn-primary shadow-none <?php echo $class; ?>">Lưu lại</a></span>
-                                <input type="hidden" value="<?php the_ID(); ?>" class="bookmark-post_id">
+                                <input type="hidden" value="<?php $post_id; ?>" class="bookmark-post_id">
                             <?php endif; ?>
                         </div>
                     </div>
