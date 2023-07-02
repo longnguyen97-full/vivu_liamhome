@@ -15,3 +15,4 @@ require_once(INC . '/helper.php');
 require_once(INC . '/filter_nav_menu_items.php');
 require_once(CLASSES . '/authentication.php');
 require_once(CLASSES . '/bookmark.php');
+require_once(CLASSES . '/feature-button.php');
