@@ -21,3 +21,9 @@ if (!function_exists('is_bookmarked')) {
         return $bookmark->isBookmarked($user_id, $post_id) ? true : false;
     }
 }
+if (!function_exists('assets')) {
+    function assets($file_name)
+    {
+        return "/assets/{$file_name}";
+    }
+}
