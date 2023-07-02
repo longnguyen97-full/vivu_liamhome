@@ -14,7 +14,7 @@ jobs:
       - name: Deploy to Server
         uses: easingthemes/ssh-deploy@main
         env:
-          SOURCE: ./
+          SOURCE: ./wp-content
           SSH_PRIVATE_KEY: '${{ secrets.EC2_SSH_KEY }}'
           REMOTE_HOST: '${{ secrets.HOST_DNS }}'
           REMOTE_USER: '${{ secrets.USERNAME }}'
